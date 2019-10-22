@@ -2,21 +2,44 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.toggle-container {
   display: flex;
-  flex-direction: column;
+  flex-flow: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.task-status-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.edit-delete-container {
+  display: flex;
+  flex-flow: row;
+  margin: auto;
+}
+
+.todo-container {
+  text-align: left;
+  background-color: #f8f8f8;
+  margin: 10px;
+  border-radius: 25px;
+  min-width: 260px;
+}
+
+.done-container {
+  text-align: left;
+  background-color: #f8f8f8;
+  margin: 10px;
+  border-radius: 25px;
+  min-width: 260px;
+}
+
+.task-title {
+  padding: 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #acacae;
 }
