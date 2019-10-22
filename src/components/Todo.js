@@ -4,12 +4,12 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Edit from "./Edit";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   paper: {
     display: "flex",
     flexFlow: "column",
     alignItems: "flex-start",
-    margin: "auto",
+    margin: 10,
     padding: 10,
     paddingRight: 20,
     paddingLeft: 20,
@@ -52,9 +52,9 @@ function Todo({ data, taskTodo, ParseDate, removeTask, editTask }) {
       />
       {taskTodo.map((d, i) => (
         <Paper className={classes.paper} key={i + "items"}>
-          <h3 data-testid={`todoTitle${i}`}>{d.title}</h3>
-          <p data-testid={`todoDescription${i}`}>{d.description}</p>
-          <p data-testid={`todoDate${i}`}>{ParseDate(d.date)}</p>
+          <h3 className = "title-text">{d.title}</h3>
+          <p>{d.description}</p>
+          <p>{ParseDate(d.date)}</p>
           <div className="edit-delete-container">
             <Fab
               data-testid = {"deleteTask"}

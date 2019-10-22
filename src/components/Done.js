@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexFlow: "column",
     alignItems: "flex-start",
-    margin: "auto",
+    margin: 10,
     padding: 10,
     paddingRight: 20,
     paddingLeft: 20,
@@ -52,7 +52,7 @@ function Done({ data, doneTasks, ParseDate, removeTask, editTask }) {
       />
       {doneTasks.map((d, i) => (
         <Paper className={classes.paper} key={i + "items"}>
-          <h3> {d.title} </h3>
+          <h3 className = "title-text"> {d.title} </h3>
           <p> {d.description} </p>
           <p> {ParseDate(d.date)} </p>
           <div className="edit-delete-container">

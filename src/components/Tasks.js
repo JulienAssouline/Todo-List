@@ -7,6 +7,9 @@ import uuidv1 from "uuid/v1";
 import {
   TextField,
 } from "@material-ui/core";
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
 
 function Tasks() {
   const [task, setTask] = useState([
@@ -15,7 +18,7 @@ function Tasks() {
       title: "todo",
       description: "first desc",
       status: false,
-      date: new Date()
+      date: new Date(2019, 9, 20)
     },
     {
       id: uuidv1(),
@@ -41,8 +44,13 @@ function Tasks() {
   const doneTasks = filteredTask.filter(d => d.status);
   const taskTodo = filteredTask.filter(d => !d.status);
 
+  const Dates = task.filter(d => !d.status).map(d => d.date)
+
+  console.log(Dates)
+
   return (
-    <div className="items-container">
+    <div className="todo-list-container">
+    <div className = "task-container">
        <TextField
             value={searchTask}
             id="item-title"
@@ -70,6 +78,14 @@ function Tasks() {
         />
         <AddTasks task={filteredTask} addTask={changeTask} />
       </div>
+      </div>
+      <div className = "line"></div>
+      <div className = "calender-container">
+           <DayPicker
+      initialMonth={new Date()}
+      selectedDays={Dates}
+    />
+    </div>
     </div>
   );
 }

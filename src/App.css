@@ -2,6 +2,20 @@
   text-align: center;
 }
 
+.todo-list-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-evenly;
+}
+
+.calender-container {
+  justify-self: end;
+}
+
+.line {
+  border: 1px solid lightgrey;
+}
+
 .toggle-container {
   display: flex;
   flex-flow: row;
@@ -42,4 +56,8 @@
   font-weight: normal;
   text-transform: uppercase;
   color: #acacae;
+}
+
+.title-text {
+  text-transform: capitalize;
 }
