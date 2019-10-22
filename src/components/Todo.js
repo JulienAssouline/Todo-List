@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     paddingRight: 20,
     paddingLeft: 20,
     width: 200,
-    borderRadius: 25,
+    borderRadius: 25
   },
   fab: {
     margin: 10
@@ -42,7 +42,7 @@ function Todo({ data, taskTodo, ParseDate, removeTask, editTask }) {
 
   return (
     <div className="todo-container">
-      <h2 className = "task-title"> To Do </h2>
+      <h2 className="task-title"> To Do </h2>
       <Edit
         editTask={editTask}
         open={open}
@@ -52,12 +52,12 @@ function Todo({ data, taskTodo, ParseDate, removeTask, editTask }) {
       />
       {taskTodo.map((d, i) => (
         <Paper className={classes.paper} key={i + "items"}>
-          <h3 className = "title-text">{d.title}</h3>
+          <h3 className="title-text">{d.title}</h3>
           <p>{d.description}</p>
-          <p>{ParseDate(d.date)}</p>
+          <p> Due Date: {ParseDate(d.date)}</p>
           <div className="edit-delete-container">
             <Fab
-              data-testid = {"deleteTask"}
+              data-testid={"deleteTask"}
               size="small"
               color="secondary"
               aria-label="edit"

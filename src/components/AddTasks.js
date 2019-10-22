@@ -70,10 +70,10 @@ function AddTasks({ addTask, task }) {
         date: selectedDate
       }
     ]);
-    setTitle("")
-    setDescription("")
-    setStatus(false)
-    setSelectedDate(new Date())
+    setTitle("");
+    setDescription("");
+    setStatus(false);
+    setSelectedDate(new Date());
     setOpen(false);
   }
 

@@ -66,10 +66,10 @@ function Edit({ open, editData, data, setOpen, editTask }) {
       }
     });
     editTask([...data]);
-    setTitle("")
-    setDescription("")
-    setStatus(false)
-    setSelectedDate(new Date())
+    setTitle("");
+    setDescription("");
+    setStatus(false);
+    setSelectedDate(new Date());
     setOpen(false);
   }
   return (

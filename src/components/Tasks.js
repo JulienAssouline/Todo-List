@@ -2,36 +2,33 @@ import React, { useState } from "react";
 import AddTasks from "./AddTasks";
 import Todo from "./Todo";
 import Done from "./Done";
-import {ParseDate} from "../utils/ParseDate"
+import { ParseDate } from "../utils/ParseDate";
 import uuidv1 from "uuid/v1";
-import {
-  TextField,
-} from "@material-ui/core";
-import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
-
+import { TextField } from "@material-ui/core";
+import DayPicker from "react-day-picker";
+import "react-day-picker/lib/style.css";
 
 function Tasks() {
   const [task, setTask] = useState([
     {
       id: uuidv1(),
-      title: "todo",
-      description: "first desc",
-      status: false,
+      title: "todo done",
+      description: "A finished todo task",
+      status: true,
       date: new Date(2019, 9, 20)
     },
     {
       id: uuidv1(),
-      title: "todo done",
-      description: "first desc",
-      status: true,
+      title: "todo",
+      description: "A task I have to finish",
+      status: false,
       date: new Date()
     }
-  ])
-  const [searchTask, setSearchTask] = useState("")
+  ]);
+  const [searchTask, setSearchTask] = useState("");
 
   function handleChangeTask(e) {
-    setSearchTask(e.target.value)
+    setSearchTask(e.target.value);
   }
 
   function changeTask(value) {
@@ -39,53 +36,50 @@ function Tasks() {
   }
 
   if (task.length === 0) return <AddTasks task={task} addTask={changeTask} />;
-  const filteredTask = task.filter(d => searchTask === "" || d.title.includes(searchTask))
+  const filteredTask = task.filter(
+    d => searchTask === "" || d.title.includes(searchTask)
+  );
 
   const doneTasks = filteredTask.filter(d => d.status);
   const taskTodo = filteredTask.filter(d => !d.status);
 
-  const Dates = task.filter(d => !d.status).map(d => d.date)
-
-  console.log(Dates)
+  const Dates = task.filter(d => !d.status).map(d => d.date);
 
   return (
     <div className="todo-list-container">
-    <div className = "task-container">
-       <TextField
-            value={searchTask}
-            id="item-title"
-            label={"Search Task"}
-            className="item-title"
-            onChange={handleChangeTask}
-            type="text"
-            margin="normal"
-            variant="outlined"
+      <div className="task-container">
+        <TextField
+          value={searchTask}
+          id="item-title"
+          label={"Search Task"}
+          className="item-title"
+          onChange={handleChangeTask}
+          type="text"
+          margin="normal"
+          variant="outlined"
+        />
+        <div className="task-status-container">
+          <Todo
+            data={filteredTask}
+            editTask={changeTask}
+            taskTodo={taskTodo}
+            removeTask={changeTask}
+            ParseDate={ParseDate}
           />
-      <div className="task-status-container">
-        <Todo
-          data={filteredTask}
-          editTask={changeTask}
-          taskTodo={taskTodo}
-          removeTask={changeTask}
-          ParseDate={ParseDate}
-        />
-        <Done
-          data={filteredTask}
-          editTask={changeTask}
-          doneTasks={doneTasks}
-          removeTask={changeTask}
-          ParseDate={ParseDate}
-        />
-        <AddTasks task={filteredTask} addTask={changeTask} />
+          <Done
+            data={filteredTask}
+            editTask={changeTask}
+            doneTasks={doneTasks}
+            removeTask={changeTask}
+            ParseDate={ParseDate}
+          />
+          <AddTasks task={filteredTask} addTask={changeTask} />
+        </div>
       </div>
+      <div className="line"></div>
+      <div className="calender-container">
+        <DayPicker initialMonth={new Date()} selectedDays={Dates} />
       </div>
-      <div className = "line"></div>
-      <div className = "calender-container">
-           <DayPicker
-      initialMonth={new Date()}
-      selectedDays={Dates}
-    />
-    </div>
     </div>
   );
 }
