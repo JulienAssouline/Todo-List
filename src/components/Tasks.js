@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AddTasks from "./AddTasks";
 import Todo from "./Todo";
-import Done from "./Done";
 import { ParseDate } from "../utils/ParseDate";
 import uuidv1 from "uuid/v1";
 import { TextField } from "@material-ui/core";
@@ -27,7 +26,7 @@ function Tasks() {
   ]);
   const [searchTask, setSearchTask] = useState("");
 
-  function handleChangeTask(e) {
+  function handleSearchTask(e) {
     setSearchTask(e.target.value);
   }
 
@@ -36,14 +35,15 @@ function Tasks() {
   }
 
   if (task.length === 0) return <AddTasks task={task} addTask={changeTask} />;
-  const filteredTask = task.filter(
+
+  const searchedTasks = task.filter(
     d => searchTask === "" || d.title.includes(searchTask)
   );
 
-  const doneTasks = filteredTask.filter(d => d.status);
-  const taskTodo = filteredTask.filter(d => !d.status);
+  const doneTasks = searchedTasks.filter(d => d.status);
+  const taskTodo = searchedTasks.filter(d => !d.status);
 
-  const Dates = task.filter(d => !d.status).map(d => d.date);
+  const dates = task.filter(d => !d.status).map(d => d.date);
 
   return (
     <div className="todo-list-container">
@@ -53,32 +53,32 @@ function Tasks() {
           id="item-title"
           label={"Search Task"}
           className="item-title"
-          onChange={handleChangeTask}
+          onChange={handleSearchTask}
           type="text"
           margin="normal"
           variant="outlined"
         />
         <div className="task-status-container">
           <Todo
-            data={filteredTask}
+            data={searchedTasks}
             editTask={changeTask}
-            taskTodo={taskTodo}
+            tasksTodo={taskTodo}
             removeTask={changeTask}
             ParseDate={ParseDate}
           />
-          <Done
-            data={filteredTask}
+          <Todo
+            data={searchedTasks}
             editTask={changeTask}
-            doneTasks={doneTasks}
+            tasksTodo={doneTasks}
             removeTask={changeTask}
             ParseDate={ParseDate}
           />
-          <AddTasks task={filteredTask} addTask={changeTask} />
+          <AddTasks task={searchedTasks} addTask={changeTask} />
         </div>
       </div>
       <div className="line"></div>
       <div className="calender-container">
-        <DayPicker initialMonth={new Date()} selectedDays={Dates} />
+        <DayPicker initialMonth={new Date()} selectedDays={dates} />
       </div>
     </div>
   );

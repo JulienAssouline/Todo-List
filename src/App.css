@@ -43,14 +43,6 @@
   min-width: 260px;
 }
 
-.done-container {
-  text-align: left;
-  background-color: #f8f8f8;
-  margin: 10px;
-  border-radius: 25px;
-  min-width: 260px;
-}
-
 .task-title {
   padding: 10px;
   font-weight: normal;

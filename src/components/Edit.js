@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -31,46 +31,39 @@ const useStyles = makeStyles(theme => ({
 
 function Edit({ open, editData, data, setOpen, editTask }) {
   const classes = useStyles();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [status, setStatus] = useState(false);
+  const [updatedTask, setUpdatedTask] = useState({ ...editData });
 
-  const handleDateChange = date => {
-    setSelectedDate(date);
-  };
+  useEffect(() => {
+    setUpdatedTask(editData);
+  }, [editData]);
+
+  function handleDateChange(date) {
+    setUpdatedTask({ ...updatedTask, date: date });
+  }
 
   function handleChangeDescription(e) {
-    setDescription(e.target.value);
+    setUpdatedTask({ ...updatedTask, description: e.target.value });
   }
 
   function handleChangeTitle(e) {
-    setTitle(e.target.value);
+    setUpdatedTask({ ...updatedTask, title: e.target.value });
   }
 
   function handleStatus() {
-    if (status) {
-      setStatus(false);
-    } else {
-      setStatus(true);
+    if (updatedTask.status) {
+      return setUpdatedTask({ ...updatedTask, status: false });
     }
+    return setUpdatedTask({ ...updatedTask, status: true });
   }
 
-  function handleSubmit() {
-    data.forEach(d => {
-      if (d.id === editData.id) {
-        d.title = title;
-        d.description = description;
-        d.status = status;
-        d.date = selectedDate;
-      }
-    });
+  function handleSubmit(e) {
+    Object.assign(
+      data[data.findIndex(d => d.id === updatedTask.id)],
+      updatedTask
+    );
     editTask([...data]);
-    setTitle("");
-    setDescription("");
-    setStatus(false);
-    setSelectedDate(new Date());
     setOpen(false);
+    e.preventDefault();
   }
   return (
     <div className="edit-todo">
@@ -83,7 +76,7 @@ function Edit({ open, editData, data, setOpen, editTask }) {
       >
         <div className={classes.paper}>
           <TextField
-            value={title}
+            value={updatedTask.title}
             id="item-title"
             label={"Item Title"}
             className="item-title"
@@ -92,7 +85,7 @@ function Edit({ open, editData, data, setOpen, editTask }) {
             margin="normal"
           />
           <TextField
-            value={description}
+            value={updatedTask.description}
             id="description"
             label={"Description"}
             className="description"
@@ -103,6 +96,7 @@ function Edit({ open, editData, data, setOpen, editTask }) {
           <div className="toggle-container">
             <p> To Do </p>
             <Switch
+              checked={updatedTask.status}
               value="checkedC"
               inputProps={{ "aria-label": "primary checkbox" }}
               onClick={handleStatus}
@@ -119,7 +113,7 @@ function Edit({ open, editData, data, setOpen, editTask }) {
                 margin="normal"
                 id="date-picker-inline"
                 label="Date picker inline"
-                value={selectedDate}
+                value={updatedTask.date}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
                   "aria-label": "change date"

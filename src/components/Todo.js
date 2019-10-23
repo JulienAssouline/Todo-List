@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-function Todo({ data, taskTodo, ParseDate, removeTask, editTask }) {
+function Todo({ data, tasksTodo, ParseDate, removeTask, editTask }) {
   const [open, setOpen] = useState(false);
   const [editData, setEditData] = useState({});
 
@@ -50,7 +50,7 @@ function Todo({ data, taskTodo, ParseDate, removeTask, editTask }) {
         editData={editData}
         data={data}
       />
-      {taskTodo.map((d, i) => (
+      {tasksTodo.map((d, i) => (
         <Paper className={classes.paper} key={i + "items"}>
           <h3 className="title-text">{d.title}</h3>
           <p>{d.description}</p>
